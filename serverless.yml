@@ -1,0 +1,38 @@
+service: microservice-process-images
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: us-east-1
+  stage: v1
+  deploymentBucket: deployment-serverless
+
+functions:
+  app:
+    name: microservice-process-images-${self:provider.stage}
+    handler: handler.process
+    description: Microservice to process images
+    memorySize: 512
+    timeout: 150
+    events:
+      - http:
+          method: get
+          path: process
+
+custom:
+  stage: "${opt:stage, self:provider.stage}"
+
+resources:
+  Resources:
+    ApiGatewayRestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: ${self:service}-${self:custom.stage}
+        BinaryMediaTypes:
+          - '*/*'
+
+package:
+  exclude:
+    - .scripts/**
+    - .vscode/**
+    - tests/**
