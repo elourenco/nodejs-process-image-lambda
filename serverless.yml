@@ -33,6 +33,6 @@ resources:
 
 package:
   exclude:
-    - .scripts/**
     - .vscode/**
+    - doc/**
     - tests/**
