@@ -10,8 +10,8 @@ provider:
 functions:
   app:
     name: microservice-process-images-${self:provider.stage}
-    handler: handler.process
     description: Microservice to process images
+    handler: handler.process
     events:
       - http:
           method: get
