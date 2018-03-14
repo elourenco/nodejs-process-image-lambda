@@ -12,8 +12,6 @@ functions:
     name: microservice-process-images-${self:provider.stage}
     handler: handler.process
     description: Microservice to process images
-    memorySize: 512
-    timeout: 150
     events:
       - http:
           method: get
