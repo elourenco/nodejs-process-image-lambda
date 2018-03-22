@@ -18,13 +18,13 @@ const _loadImage = (source) => {
 
 const _applyResize = (image, width, height) => {
   if (width && height) {
-    return image.resize(width, height);
+    return image.resize(Number(width), Number(height));
   }
 
   if (width) {
-    return image.resize(width, Jimp.AUTO);
+    return image.resize(Number(width), Jimp.AUTO);
   } else if (height) {
-    return image.resize(Jimp.AUTO, height);
+    return image.resize(Jimp.AUTO, Number(height));
   }
 
   return image;
@@ -44,10 +44,10 @@ const _getBuffler = (image) => {
 }
 
 const processImage = {
-  process(source) {
+  process(source, width, height) {
     return _loadImage(source)
       .then(image => {
-        return _applyResize(image, 200);
+        return _applyResize(image, width, height);
       })
       .then(image => {
         return _getBuffler(image);
